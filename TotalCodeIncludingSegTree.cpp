@@ -137,11 +137,16 @@ vector<Point> GrahamScan(vector<Point> P)
         st.push(P[i]);
     }
     vector<Point> ans;
-    while (!st.empty())
-        ans.push_back(st.top()), st.pop();
-    reverse(all(ans));
+    while (!st.empty()) ans.push_back(st.top()), st.pop();
     return ans;
 }
+
+void GrahamWay()
+{
+    vector<Point> CH_Old = GrahamScan(point);
+    //printFuncName();
+}
+
 
 vector<Point> MonotoneChain(vector<Point> P)
 {
