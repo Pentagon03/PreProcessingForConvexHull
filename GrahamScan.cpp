@@ -60,6 +60,5 @@ vector<Point> GrahamScan(vector<Point> P)
     vector<Point> ans;
     while (!st.empty())
         ans.push_back(st.top()), st.pop();
-    reverse(all(ans));
     return ans;
 }
