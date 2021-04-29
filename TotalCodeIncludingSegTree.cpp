@@ -27,6 +27,14 @@ void printTime(clock_t s, clock_t e)
 {
     printf("	%.5f", ((double)e - s) / CLOCKS_PER_SEC);
 };
+void printTime(function<void(void)> func)
+{
+    clock_t start1, end1;
+    start1 = clock();
+    func();
+    end1 = clock();
+    printf("%.5f\n", ((double)end1 - start1) / CLOCKS_PER_SEC);
+};
 void printTime(function<void(void)> func,double&res)
 {
     clock_t start1, end1;
@@ -66,16 +74,6 @@ void printPoints(vector<Point> &points)
         printf("%d %d\n", p.x, p.y);
     }
 }
-
-struct Point
-{
-    int x, y;
-    Point(int _x = 0, int _y = 0) : x(_x), y(_y) {}
-    Point operator-(Point &tmp) { return Point(x - tmp.x, y - tmp.y); }
-    ll sq() { return x * 1LL * x + y * 1LL * y; }
-    bool operator<(const Point &r) const { return x == r.x ? y < r.y : x < r.x; }
-    bool operator==(const Point &r) const { return x == r.x && y == r.y; }
-};
 
 Point P0;
 //a에서 바라 봤을 때 b->c가 counter clock wise인지 체크
@@ -170,14 +168,7 @@ vector<Point> MonotoneChain(vector<Point> P)
     dn.insert(dn.end(), ++up.begin(), --up.end());
     return dn;
 }
-/*
-Only Graham Scan
-*/
-void GrahamWay()
-{
-    vector<Point> CH_Old = GrahamScan(point);
-    //printFuncName();
-}
+
 void AndrewWay()
 {
     vector<Point> CH = MonotoneChain(point);
@@ -186,7 +177,7 @@ void AndrewWay()
 /*
 Seg Tree 1
 */
-//const variable is fasterS
+//const variable is faster
 constexpr int blk = 64;
 struct SegmentTree
 {
@@ -194,7 +185,7 @@ struct SegmentTree
     ll *tree;
     SegmentTree(int n = 0)
     {
-        puts("Using bitset Segment Tree");
+        printf("Using bitset Segment Tree, ");
         n += 3;
         int size = 0;
         while (base < n * n)
@@ -247,7 +238,7 @@ struct boolSegmentTree
     bool *tree;
     boolSegmentTree(int n = 0)
     {
-        puts("Using Bool Segment Tree");
+        printf("Using Bool Segment Tree, ");
         n += 3;
         int size = 0;
         while (base < n * n)
@@ -419,7 +410,7 @@ void ContinuousSumWay()
         if (!Sum(x, y + 1, range, range) || !Sum(1, y, x - 1, range) || !Sum(x + 1, 1, range, y) || !Sum(1, 1, x, y-1))
             PCHP.push_back(p);
     }
-    vector<Point> CH_New = MonotoneChain(PCHP);
+    vector<Point> CH_New = GrahamScan(PCHP);
     //printFuncName();
 }
 /*
@@ -582,7 +573,7 @@ void solve(int n=0){
     init();
     setRandomPoint(n);
     int All = point.size();
-    printTime(AndrewWay,res1);
+    printTime(GrahamWay,res1);
     printTime(ContinuousSumWay,res2);
     rate += (All-PCHP.size())*1.00/All*100;
 }
