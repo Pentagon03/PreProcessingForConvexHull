@@ -2,6 +2,8 @@
 #include <stack>
 #include <algorithm>
 #include <vector>
+#include <ctime>
+#include <functional>
 using namespace std;
 using ll = long long;
 #define printFuncName() printf("%s\n", __FUNCTION__)
