@@ -4,10 +4,10 @@
 #include <vector>
 using namespace std;
 using ll = long long;
-#define printFuncName() printf("%s\n", __FUNCTION__)
 #define nl '\n'
 #define all(v) v.begin(), v.end()
 #define compress(v) sort(all(v)), v.erase(unique(all(v)), v.end())
+#define printFuncName() cout<<__FUNCTION__<<nl
 
 struct Point
 {
