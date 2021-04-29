@@ -1,24 +1,3 @@
-#include <iostream>
-#include <stack>
-#include <algorithm>
-#include <vector>
-using namespace std;
-using ll = long long;
-#define nl '\n'
-#define all(v) v.begin(), v.end()
-#define compress(v) sort(all(v)), v.erase(unique(all(v)), v.end())
-#define printFuncName() cout<<__FUNCTION__<<nl
-
-struct Point
-{
-    int x, y;
-    Point(int _x = 0, int _y = 0) : x(_x), y(_y) {}
-    Point operator-(Point &tmp) { return Point(x - tmp.x, y - tmp.y); }
-    ll sq() { return x * 1LL * x + y * 1LL * y; }
-    bool operator<(const Point &r) const { return x == r.x ? y < r.y : x < r.x; }
-    bool operator==(const Point &r) const { return x == r.x && y == r.y; }
-};
-
 Point P0;
 //a에서 바라 봤을 때 b->c가 counter clock wise인지 체크
 int ccw(Point a, Point b, Point c)
@@ -83,21 +62,4 @@ vector<Point> GrahamScan(vector<Point> P)
         ans.push_back(st.top()), st.pop();
     reverse(all(ans));
     return ans;
-}
-
-int main(){
-    //faster input,output for cin,cout
-    ios::sync_with_stdio(false); cin.tie(0);
-    int n;
-    cin>>n;
-    vector<Point> v; 
-    for(int i=0;i<n;i++){
-        int x,y; cin>>x>>y;
-        v.emplace_back(x,y);
-    }
-    v = GrahamScan(v); 
-    cout<<v.size()<<nl;
-    for(auto t:v){
-        cout<<t.x<<' '<<t.y<<nl;
-    }
 }
